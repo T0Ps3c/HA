@@ -1,0 +1,31 @@
+script:
+  ac_heat:
+    alias: 'Heat'
+    sequence:
+    - data:
+        command: !secret command_heat
+        entity_id: remote.xiaomi_miio_10_0_0_12
+      service: remote.send_command
+
+  ac_cool:
+    alias: 'Cool'
+    sequence:
+    - data:
+        command: !secret command_cool
+        entity_id: remote.xiaomi_miio_10_0_0_12
+      service: remote.send_command
+
+  ac_off:
+    alias: 'Off'
+    sequence:
+    - data:
+        command: !secret command_off
+        entity_id: remote.xiaomi_miio_10_0_0_12
+      service: remote.send_command
+    - data:
+        entity_id: climate.autocool,climate.autoheat
+        operation_mode: 'off'
+      service: climate.set_operation_mode
+    - data:
+        entity_id: input_boolean.thermocool,input_boolean.thermoheat
+      service: input_boolean.turn_off
