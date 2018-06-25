@@ -80,7 +80,6 @@ automation:
     action:
     - service: script.savelight
     - service: script.normallight
-
   - alias: close door restore light
     trigger:
       platform: state
