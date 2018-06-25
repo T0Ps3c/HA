@@ -1,0 +1,118 @@
+input_text:
+  ac:
+    name: AC
+  lamp:
+    name: Lamp
+  tv:
+    name: TV
+
+customize:
+############################################################
+###                        lamp                          ###
+############################################################
+  input_text.lamp:
+    custom_ui_state_card: state-card-tiles
+    config:
+      row_height: 40px
+      entities:
+      - entity: script.bluellight
+        icon: mdi:lightbulb-on
+        color: blue
+      - entity: script.offlight
+        icon: mdi:lightbulb
+        color: gray
+      - entity: script.normallight
+        icon: mdi:lightbulb-on
+        color: orange
+############################################################
+###                         ac                           ###
+############################################################
+  input_text.ac:
+    custom_ui_state_card: state-card-tiles
+    config:
+      row_height: 40px
+      entities:
+      - entity: input_boolean.thermocool
+        icon: mdi:snowflake
+        color_on: blue
+        color_off: blue
+        text_color_on: green
+        text_color_off: white
+      - entity: script.ac_off
+        icon: mdi:fan-off
+        color: gray
+      - entity: input_boolean.thermoheat
+        icon: mdi:fire
+        color_on: red
+        color_off: red
+        text_color_on: green
+        text_color_off: white
+############################################################
+###                         tv                           ###
+############################################################
+  input_text.tv:
+    columns: 3
+    custom_ui_state_card: state-card-tiles
+    config:
+      row_height: 40px
+      entities:
+      - entity: script.tv_on
+        text_color: black
+        icon: mdi:television-guide
+        column: 1
+        row: 1
+      - entity: script.tv_up
+        text_color: black
+        icon: mdi:arrow-up-thick
+        column: 2
+        row: 1
+      - entity: script.tv_off
+        icon: mdi:television-off
+        text_color: black
+        column: 3
+        row: 1
+      - entity: script.tv_left
+        icon: mdi:arrow-left-thick
+        text_color: black
+        column: 1
+        row: 2
+      - entity: script.tv_ok
+        label: Ok
+        text_color: black
+        column: 2
+        row: 2
+      - entity: script.tv_right
+        icon: mdi:arrow-right-thick
+        text_color: black
+        column: 3
+        row: 2
+      - entity: script.tv_back
+        label: Back
+        text_color: black
+        column: 1
+        row: 3
+      - entity: script.tv_down
+        icon: mdi:arrow-down-thick
+        text_color: black
+        column: 2
+        row: 3
+      - entity: script.tv_menu
+        label: Menu
+        text_color: black
+        column: 3
+        row: 3
+      - entity: script.tv_vol_up
+        icon: mdi:volume-plus
+        text_color: black
+        column: 1
+        row: 4
+      - entity: script.tv_mute
+        icon: mdi:volume-off
+        text_color: black
+        column: 2
+        row: 4
+      - entity: script.tv_vol_down
+        icon: mdi:volume-minus
+        text_color: black
+        column: 3
+        row: 4
