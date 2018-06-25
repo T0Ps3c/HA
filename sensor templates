@@ -1,0 +1,12 @@
+sensor:
+  - platform: template
+    sensors:
+      uptime:
+        value_template: '{%set list2=states.sensor.since_last_boot.state.split(":")%}{%set list3=list2[0].split(",")%}{%set list4=list3[0].split(" ")%}{% if list3[1]==null -%}{{"%.2f"|format(list2[0]|int/24 + list2[1]|int/60/24 + list2[2]|int/60/60/24)}}{%- else -%}{{"%.2f"|format(list3[1]|int/24 + list2[1]|int/60/24 + list2[2]|int/60/60/24+float(list4[0]))}}{%- endif %}'
+        unit_of_measurement: 'days'
+
+  - platform: template
+    sensors:
+      yr_weather:
+        value_template: '{%set list2 = "0","Clear Sky","Fair","Partly Cloudy","Cloudy","Rain Showers","Rain Showers And Thunder","Sleet Showers","Snow Showers","Rain","Heavy Rain","Heavy Rain And Thunder","Sleet","Snow","Snow And Thunder","Fog","0","0","0","0","Sleet Showers And Thunder","Snow Showers And Thunder","Rain And Thunder","Sleet And Thunder","Light Rain Showers And Thunder","Heavy Rain Showers And Thunder","Light Sleet Showers And Thunder","Heavy Sleet Showers And Thunder","Light Snow Showers And Thunder","Heavy Snow Showers And Thunder","Light Rain And Thunder","Light Sleet And Thunder","Heavy Sleet And Thunder","Light Snow And Thunder","Heavy Snow And Thunder","0","0","0","0","0","Light Rain Showers","Heavy Rain Showers","Light Sleet Showers","Heavy Sleet Showers","Light Snow Showers","Heavy Snow Showers","Light Rain","Light Sleet","Heavy Sleet","Light Snow","Heavy Snow"%}{{list2[states.sensor.yr_symbol.state|int]}}'
+        entity_picture_template: "{{ state_attr('sensor.yr_symbol','entity_picture') }}"
