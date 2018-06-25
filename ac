@@ -1,3 +1,25 @@
+############################################################
+###     input_number - slider for targer temperature     ###
+############################################################
+input_number:
+  ac_target:
+    initial: 25
+    min: 20
+    max: 30
+    name: 'Temperature ±1'
+
+############################################################
+###  input_boolean - switches for thermostat and tiles   ###
+############################################################
+input_boolean:
+  accoolswitch:
+  acheatswitch:
+  thermocool:
+  thermoheat:
+
+############################################################
+###                       scripts                        ###
+############################################################
 script:
   ac_heat:
     alias: 'Heat'
@@ -6,7 +28,6 @@ script:
         command: !secret command_heat
         entity_id: remote.xiaomi_miio_10_0_0_12
       service: remote.send_command
-
   ac_cool:
     alias: 'Cool'
     sequence:
@@ -14,7 +35,6 @@ script:
         command: !secret command_cool
         entity_id: remote.xiaomi_miio_10_0_0_12
       service: remote.send_command
-
   ac_off:
     alias: 'Off'
     sequence:
@@ -30,6 +50,9 @@ script:
         entity_id: input_boolean.thermocool,input_boolean.thermoheat
       service: input_boolean.turn_off
 
+############################################################
+###                      automation                      ###
+############################################################
 automation:
   - alias: ac target temperature
     trigger:
@@ -109,12 +132,9 @@ automation:
     action:
     - service: script.ac_off
 
-input_boolean:
-  accoolswitch:
-  acheatswitch:
-  thermocool:
-  thermoheat:
-
+############################################################
+###        generic_thermostat heating and cooling        ###
+############################################################
 climate:
   - platform: generic_thermostat
     name: AutoHeat
@@ -138,10 +158,3 @@ climate:
     max_temp: 30
     target_temp: 25
     initial_operation_mode: "off"
-
-input_number:
-  ac_target:
-    initial: 25
-    min: 20
-    max: 30
-    name: 'Temperature ±1'
