@@ -1,0 +1,67 @@
+input_number:
+  brightness:
+    min: 0
+    max: 255
+  r_color:
+    min: 0
+    max: 255
+  g_color:
+    min: 0
+    max: 255
+  b_color:
+    min: 0
+    max: 255
+
+script:
+  normallight:
+    alias: 'Normal'
+    sequence:
+      - service: light.turn_on
+        entity_id: light.yeelight
+        data:
+          rgb_color: [255,205,166]
+          brightness: 255
+
+  bluellight:
+    alias: 'Blue'
+    sequence:
+      - service: light.turn_on
+        entity_id: light.yeelight
+        data:
+          rgb_color: [0,0,255]
+          brightness: 255
+
+  offlight:
+    alias: 'Off'
+    sequence:
+      - service: light.turn_off
+        entity_id: light.yeelight
+
+  savelight:
+    alias: 'Save Light'
+    sequence:
+      - service: input_number.set_value
+        data_template:
+          entity_id: input_number.brightness
+          value: '{{ (states.light.yeelight.attributes.brightness | int ) }}'
+      - service: input_number.set_value
+        data_template:
+          entity_id: input_number.r_color
+          value: '{{ (states.light.yeelight.attributes.rgb_color[0] | int ) }}'
+      - service: input_number.set_value
+        data_template:
+          entity_id: input_number.g_color
+          value: '{{ (states.light.yeelight.attributes.rgb_color[1] | int ) }}'
+      - service: input_number.set_value
+        data_template:
+          entity_id: input_number.b_color
+          value: '{{ (states.light.yeelight.attributes.rgb_color[2] | int ) }}'
+
+  restorelight:
+    alias: 'Restore Light'
+    sequence:
+      - service: light.turn_on
+        entity_id: light.yeelight
+        data_template:
+          brightness: '{{states.input_number.brightness.state | int}}'
+          rgb_color: ['{{states.input_number.r_color.state | int}}','{{states.input_number.g_color.state | int}}','{{states.input_number.b_color.state | int}}']
