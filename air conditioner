@@ -1,5 +1,5 @@
 ############################################################
-###     input_number - slider for targer temperature     ###
+###     input_number - slider for target temperature     ###
 ############################################################
 input_number:
   ac_target:
