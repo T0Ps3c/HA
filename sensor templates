@@ -1,10 +1,15 @@
-sensor:
+############################################################
+###  sensor.since_last_boot - format like sensor.uptime  ###
+############################################################
   - platform: template
     sensors:
       uptime:
         value_template: '{%set list2=states.sensor.since_last_boot.state.split(":")%}{%set list3=list2[0].split(",")%}{%set list4=list3[0].split(" ")%}{% if list3[1]==null -%}{{"%.2f"|format(list2[0]|int/24 + list2[1]|int/60/24 + list2[2]|int/60/60/24)}}{%- else -%}{{"%.2f"|format(list3[1]|int/24 + list2[1]|int/60/24 + list2[2]|int/60/60/24+float(list4[0]))}}{%- endif %}'
         unit_of_measurement: 'days'
 
+############################################################
+###      yr_weather - description instead of number      ###
+############################################################
   - platform: template
     sensors:
       yr_weather:
