@@ -1,0 +1,11 @@
+frontend:
+  themme:
+    paper-font-body1_-_font-weight: bold
+    paper-font-body1_-_font-size: 15px
+    paper-toggle-button-checked-button-color: green
+    paper-toggle-button-checked-bar-color: gray
+    paper-toggle-button-unchecked-button-color: red
+    paper-toggle-button-unchecked-bar-color: gray
+    paper-slider-knob-color: green
+    paper-slider-active-color: gray
+    paper-slider-container-color: gray
