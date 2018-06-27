@@ -1,0 +1,12 @@
+/etc/lirc/lircd.conf.d/remote_name.lircd.conf
+/usr/local/lib/node_modules/lirc_web/config.json
+
+/usr/local/lib/node_modules/nodejs lirc_web
+
+sudo systemctl start/stop lircd.service
+sudo systemctl start/stop lircd.socket
+
+mode2 -m -d /dev/lirc0 > filename.conf
+
+irsend LIST remote_name ""
+irsend SEND_ONCE remote_name command_name
