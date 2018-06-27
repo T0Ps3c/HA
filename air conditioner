@@ -22,28 +22,19 @@ input_boolean:
 ############################################################
 script:
   ac_heat:
-    alias: 'Heat'
     sequence:
-    - data:
-        command: !secret command_heat
-        entity_id: remote.xiaomi_miio_10_0_0_12
-      service: remote.send_command
+      service: shell_command.ac_heat
+
   ac_cool:
-    alias: 'Cool'
     sequence:
-    - data:
-        command: !secret command_cool
-        entity_id: remote.xiaomi_miio_10_0_0_12
-      service: remote.send_command
+      service: shell_command.ac_cool
+
   ac_off:
     alias: 'Off'
     sequence:
+    - service: shell_command.ac_off
     - data:
-        command: !secret command_off
-        entity_id: remote.xiaomi_miio_10_0_0_12
-      service: remote.send_command
-    - data:
-        entity_id: climate.autocool,climate.autoheat
+        entity_id: climate.ac_cool,climate.ac_heat
         operation_mode: 'off'
       service: climate.set_operation_mode
     - data:
