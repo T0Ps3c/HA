@@ -1,5 +1,5 @@
-LIRC-WEB:
-/usr/local/lib/node_modules/nodejs lirc_web
+LIRC-WEB crontab:
+@reboot sudo /usr/bin/nodejs /usr/local/lib/node_modules/lirc_web &
 
 LIRC-PROCCESS:
 sudo systemctl start/stop lircd.service
