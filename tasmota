@@ -1,0 +1,6 @@
+teleperiod 15
+timezone 3
+powerretain 1
+maxpower 3000
+ledpower 0
+ledstate 0
