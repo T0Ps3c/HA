@@ -1,8 +1,4 @@
-REMOTES:
-/etc/lirc/lircd.conf.d/remote_name.lircd.conf
-
 LIRC-WEB:
-/usr/local/lib/node_modules/lirc_web/config.json
 /usr/local/lib/node_modules/nodejs lirc_web
 
 LIRC-PROCCESS:
@@ -18,6 +14,183 @@ irsend SEND_ONCE remote_name command_name
 
 HA:
 shell_command:
-  ac_heat: 'curl -X POST http://IP:PORT/macros/AC%20Heat'
-  ac_cool: 'curl -X POST http://IP:PORT/macros/AC%20Cool'
-  ac_off: 'curl -X POST http://IP:PORT/macros/AC%20Off'
+  ac_heat: 'curl -X POST http://10.0.0.10:4000/macros/AC%20Heat'
+  ac_cool: 'curl -X POST http://10.0.0.10:4000/macros/AC%20Cool'
+  ac_off: 'curl -X POST http://10.0.0.10:4000/macros/AC%20Off'
+  tv_menu: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Menu'
+  tv_back: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Back'
+  tv_on: 'curl -X POST http://10.0.0.10:4000/macros/TV%20On'
+  tv_off: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Off'
+  tv_home: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Home'
+  tv_up: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Up'
+  tv_down: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Down'
+  tv_left: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Left'
+  tv_right: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Right'
+  tv_ok: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Ok'
+  tv_vol_up: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Vol%20Up'
+  tv_vol_down: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Vol%20Down'
+  tv_mute: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Mute'
+
+LIRC-WEB /usr/local/lib/node_modules/lirc_web/config.json
+{
+  "server" : {
+    "port" : 4000,
+    "ssl" : false,
+    "ssl_cert" : "/home/pi/lirc_web/server.cert",
+    "ssl_key" : "/home/pi/lirc_web/server.key",
+    "ssl_port" : 4001
+  },
+  "macros": {
+    "TV On": [["TV","KEY_POWER"],["TV","KEY_POWER"]],
+    "TV Off": [["TV","KEY_POWER"]],
+    "TV Home": [["TV","KEY_HOME"]],
+    "TV Up": [["TV","KEY_UP"]],
+    "TV Down": [["TV","KEY_DOWN"]],
+    "TV Left": [["TV","KEY_LEFT"]],
+    "TV Right": [["TV","KEY_RIGHT"]],
+    "TV Ok": [["TV","KEY_OK"]],
+    "TV Back": [["TV","KEY_BACK"]],
+    "TV Menu": [["TV","KEY_MENU"]],
+    "TV Vol Down": [["TV","KEY_VOLUMEDOWN"]],
+    "TV Vol Up": [["TV","KEY_VOLUMEUP"]],
+    "TV Mute": [["TV","KEY_MUTE"]],
+    "AC Cool": [["AC","cool23fan2"]],
+    "AC Off": [["AC","cool23fan2off"]]
+  }
+}
+
+LIRC /etc/lirc/lirc_options.conf
+[lircd]
+nodaemon        = False
+driver          = default
+device          = /dev/lirc0
+output          = /var/run/lirc/lircd
+pidfile         = /var/run/lirc/lircd.pid
+plugindir       = /usr/lib/arm-linux-gnueabihf/lirc/plugins
+permission      = 666
+allow-simulate  = No
+repeat-max      = 600
+[lircmd]
+uinput          = False
+nodaemon        = False
+
+LIRC /etc/lirc/hardware.conf
+LIRCD_ARGS="--uinput --listen"
+LOAD_MODULES=true
+DRIVER="default"
+DEVICE="/dev/lirc0"
+MODULES="lirc_rpi"
+
+LIRC /etc/lirc/lircd.conf.d/AC.lircd.conf
+begin remote
+  name   AC
+  flags  RAW_CODES
+  eps     30
+  aeps   100
+  ptrail   0
+  repeat 0 0
+  gap 28205
+  begin raw_codes
+    name cool23fan2off
+     4391     4453      508     1688      509      594
+      509     1688      509     1689      508      594
+      508      595      508     1688      510      596
+      509      592      486     1711      508      595
+      508      594      534     1662      511     1688
+      508      594      533     1672      505      591
+      509     1694      598     1578      607     1609
+      531     1676      496      595      583     1616
+      580     1621      507     1686      510      591
+      584      520      507      595      507      594
+      487     1715      506      595      508      594
+      510     1688      509     1688      508     1688
+      508      594      616      486      509      596
+      516      585      509      595      510      592
+      512      591      507      596      507     1690
+      509     1687      509     1689      508     1689
+      509     1687      597     5201     4441     4377
+      509     1687      510      594      508     1689
+      509     1688      509      593      509      594
+      509     1687      512      595      512      586
+      511     1688      508      594      512      592
+      511     1685      514     1684      508      593
+      509     1690      510      591      509     1687
+      510     1688      509     1687      510     1688
+      509      593      510     1688      508     1690
+      509     1685      510      594      509      593
+      509      593      509      593      510     1691
+      505      595      510      596      510     1688
+      504     1690      508     1686      509      593
+      509      594      508      594      509      592
+      510      595      509      591      509      594
+      510      591      510     1687      510     1688
+      510     1686      509     1688      509     1689
+      511
+    name cool23fan2
+     4451     4389      501     1694      503      600
+      484     1712      504     1693      504      599
+      504      596      504     1697      501      600
+      504      596      485     1715      485      615
+      504      599      503     1700      528     1664
+      502      599      502     1703      497      597
+      502     1692      578      523      505     1692
+      527     1670      505     1698      528     1663
+      486     1713      505     1689      505      598
+      505     1692      505      598      504      598
+      505      597      487      616      505      600
+      505      597      504     1691      504      599
+      505      599      484      616      504      598
+      504      598      504      601      504     1693
+      503      596      487     1709      506     1693
+      503     1692      506     1690      506     1671
+      526     1690      565     5232     4463     4353
+      504     1693      504      599      505     1694
+      503     1691      504      597      505      598
+      505     1690      505      599      531      569
+      506     1691      505      600      502      597
+      505     1691      506     1690      511      592
+      505     1694      530      570      505     1691
+      506      596      506     1690      506     1691
+      505     1692      505     1691      506     1693
+      532     1663      505      597      506     1694
+      502      596      506      596      506      599
+      503      597      504      600      506      594
+      486     1710      487      615      487      616
+      534      568      505      596      536      567
+      507      596      535     1661      506      595
+      510     1686      508     1689      509     1687
+      486     1711      510     1686      510     1688
+      509
+  end raw_codes
+end remote
+
+LIRC /etc/lirc/lircd.conf.d/TV.lircd.conf
+begin remote
+  name  TV
+  bits           21
+  flags RC6|CONST_LENGTH
+  eps            30
+  aeps          100
+  header       2633   926
+  one           411   474
+  zero          411   474
+  gap          106227
+  min_repeat      1
+  toggle_bit_mask 0x10000
+  rc6_mask    0x10000
+  frequency    38000
+      begin codes
+          KEY_POWER                0x0EFFF3
+          KEY_HOME                 0x0EFFAB
+          KEY_UP                   0x0EFFA7
+          KEY_DOWN                 0x0EFFA6
+          KEY_LEFT                 0x0EFFA5
+          KEY_RIGHT                0x0EFFA4
+          KEY_OK                   0x0EFFA3
+          KEY_BACK                 0x0EFFF5
+          KEY_MENU                 0x0EFF6F
+          KEY_VOLUMEUP             0x0EFFEF
+          KEY_VOLUMEDOWN           0x0EFFEE
+          KEY_MUTE                 0x0EFFF2
+      end codes
+end remote
