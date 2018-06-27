@@ -1,12 +1,23 @@
+REMOTES:
 /etc/lirc/lircd.conf.d/remote_name.lircd.conf
-/usr/local/lib/node_modules/lirc_web/config.json
 
+LIRC-WEB:
+/usr/local/lib/node_modules/lirc_web/config.json
 /usr/local/lib/node_modules/nodejs lirc_web
 
+LIRC-PROCCESS:
 sudo systemctl start/stop lircd.service
 sudo systemctl start/stop lircd.socket
 
+LIRC-LEARN-RAW:
 mode2 -m -d /dev/lirc0 > filename.conf
 
+LIRC:
 irsend LIST remote_name ""
 irsend SEND_ONCE remote_name command_name
+
+HA:
+shell_command:
+  ac_heat: 'curl -X POST http://IP:PORT/macros/AC%20Heat'
+  ac_cool: 'curl -X POST http://IP:PORT/macros/AC%20Cool'
+  ac_off: 'curl -X POST http://IP:PORT/macros/AC%20Off'
