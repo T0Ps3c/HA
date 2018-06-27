@@ -46,19 +46,19 @@ script:
       - service: input_number.set_value
         data_template:
           entity_id: input_number.brightness
-          value: '{{ (states.light.yeelight.attributes.brightness | int ) }}'
+          value: '{% if states.light.yeelight.state == "off" %}255{% else %}{{ (states.light.yeelight.attributes.brightness | int ) }}{% endif %}'
       - service: input_number.set_value
         data_template:
           entity_id: input_number.r_color
-          value: '{{ (states.light.yeelight.attributes.rgb_color[0] | int ) }}'
+          value: '{% if states.light.yeelight.state == "off" %}255{% else %}{{ (states.light.yeelight.attributes.rgb_color[0] | int ) }}{% endif %}'
       - service: input_number.set_value
         data_template:
           entity_id: input_number.g_color
-          value: '{{ (states.light.yeelight.attributes.rgb_color[1] | int ) }}'
+          value: '{% if states.light.yeelight.state == "off" %}205{% else %}{{ (states.light.yeelight.attributes.rgb_color[1] | int ) }}{% endif %}'
       - service: input_number.set_value
         data_template:
           entity_id: input_number.b_color
-          value: '{{ (states.light.yeelight.attributes.rgb_color[2] | int ) }}'
+          value: '{% if states.light.yeelight.state == "off" %}166{% else %}{{ (states.light.yeelight.attributes.rgb_color[2] | int ) }}{% endif %}'
   restorelight:
     alias: 'Restore Light'
     sequence:
