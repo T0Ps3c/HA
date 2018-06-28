@@ -1,0 +1,3 @@
+curl -SsL https://get.docker.com | bash
+
+curl -sL https://raw.githubusercontent.com/home-assistant/hassio-build/master/install/hassio_install | bash -s -- -m raspberrypi3
