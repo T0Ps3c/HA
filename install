@@ -5,6 +5,6 @@ sudo curl -SsL https://get.docker.com | bash
 curl -sL https://raw.githubusercontent.com/home-assistant/hassio-build/master/install/hassio_install | bash -s -- -m raspberrypi3
 
 sudo docker volume create portainer_data
-sudo docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+sudo docker run -d --restart=always --name portainer -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
 
-sudo docker container run -d --restart=always --name netdata -p 19999:19999 mhiro2/rpi-netdata
+sudo docker run -d --restart=always --name netdata -p 19999:19999 mhiro2/rpi-netdata
