@@ -4,3 +4,5 @@ curl -sL https://raw.githubusercontent.com/home-assistant/hassio-build/master/in
 
 docker volume create portainer_data
 docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+
+docker container run -d --restart=always --name netdata -p 19999:19999 mhiro2/rpi-netdata
