@@ -1,5 +1,5 @@
-curl -X POST -H "x-ha-access: PASSWORD" -H "Content-Type: application/json" -d '{"state": "on", "attributes": {"friendly_name": "Motion","device_class": "motion"}}' http://IP:PORT/api/states/binary_sensor.motion
-curl -X POST -H "x-ha-access: PASSWORD" -H "Content-Type: application/json" -d '{"state": "off", "attributes": {"friendly_name": "Motion","device_class": "motion"}}' http://IP:PORT/api/states/binary_sensor.motion
+curl -X POST -H 'x-ha-access: PASSWORD' -H "Content-Type: application/json" -d '{"state": "on", "attributes": {"friendly_name": "Motion","device_class": "motion"}}' http://IP:PORT/api/states/binary_sensor.motion
+curl -X POST -H 'x-ha-access: PASSWORD' -H "Content-Type: application/json" -d '{"state": "off", "attributes": {"friendly_name": "Motion","device_class": "motion"}}' http://IP:PORT/api/states/binary_sensor.motion
 
 binary_sensor:
   - platform: "mqtt"
