@@ -8,3 +8,5 @@ sudo docker volume create portainer_data
 sudo docker run -d --restart=always --name portainer -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
 
 sudo docker run -d --restart=always --name netdata -p 19999:19999 mhiro2/rpi-netdata
+
+sudo docker run -d --restart=always --name camera1 -p 80:80 -p 8889:8889 kerberos/kerberos
