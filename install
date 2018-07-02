@@ -11,6 +11,5 @@ sudo docker run -d --restart=always --name netdata -p 19999:19999 mhiro2/rpi-net
 
 sudo docker run -d --restart=always --name camera1 -p 80:80 -p 8889:8889 kerberos/kerberos
 
+sudo docker run -d --restart=always --name=motioneye -p 8765:8765 -p 8081:8081 -v /etc/localtime:/etc/localtime:ro -v /etc/motioneye:/etc/motioneye -v /var/lib/motioneye:/var/lib/motioneye ccrisan/motioneye:dev-armhf
 
-sudo docker run -d --restart=always --name=xeoma -p 8090:8090 -p 10090:10090 -v /local/path/to/config:/config -v /local/path/to/archive:/archive coppit/xeoma
-sudo docker run -d --restart=always --name=xeoma -p 8090:8090  --net=host -v <local storage>:/usr/local/Xeoma -v /mnt/archive:/usr/local/Xeoma/XeomaArchive jedimonkey/xeoma
