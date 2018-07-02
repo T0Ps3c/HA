@@ -13,3 +13,4 @@ sudo docker run -d --restart=always --name camera1 -p 80:80 -p 8889:8889 kerbero
 
 
 sudo docker run -d --restart=always --name=xeoma -p 8090:8090 -p 10090:10090 -v /local/path/to/config:/config -v /local/path/to/archive:/archive coppit/xeoma
+sudo docker run -d --restart=always --name=xeoma -p 8090:8090  --net=host -v <local storage>:/usr/local/Xeoma -v /mnt/archive:/usr/local/Xeoma/XeomaArchive jedimonkey/xeoma
