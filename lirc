@@ -14,22 +14,22 @@ irsend SEND_ONCE remote_name command_name
 
 HA:
 shell_command:
-  ac_heat: 'curl -X POST http://10.0.0.10:4000/macros/AC%20Heat'
-  ac_cool: 'curl -X POST http://10.0.0.10:4000/macros/AC%20Cool'
-  ac_off: 'curl -X POST http://10.0.0.10:4000/macros/AC%20Off'
-  tv_menu: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Menu'
-  tv_back: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Back'
-  tv_on: 'curl -X POST http://10.0.0.10:4000/macros/TV%20On'
-  tv_off: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Off'
-  tv_home: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Home'
-  tv_up: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Up'
-  tv_down: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Down'
-  tv_left: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Left'
-  tv_right: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Right'
-  tv_ok: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Ok'
-  tv_vol_up: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Vol%20Up'
-  tv_vol_down: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Vol%20Down'
-  tv_mute: 'curl -X POST http://10.0.0.10:4000/macros/TV%20Mute'
+  ac_heat: 'curl -X POST http://IP:PORT/macros/AC%20Heat'
+  ac_cool: 'curl -X POST http://IP:PORT/macros/AC%20Cool'
+  ac_off: 'curl -X POST http://IP:PORT/macros/AC%20Off'
+  tv_menu: 'curl -X POST http://IP:PORT/macros/TV%20Menu'
+  tv_back: 'curl -X POST http://IP:PORT/macros/TV%20Back'
+  tv_on: 'curl -X POST http://IP:PORT/macros/TV%20On'
+  tv_off: 'curl -X POST http://IP:PORT/macros/TV%20Off'
+  tv_home: 'curl -X POST http://IP:PORT/macros/TV%20Home'
+  tv_up: 'curl -X POST http://IP:PORT/macros/TV%20Up'
+  tv_down: 'curl -X POST http://IP:PORT/macros/TV%20Down'
+  tv_left: 'curl -X POST http://IP:PORT/macros/TV%20Left'
+  tv_right: 'curl -X POST http://IP:PORT/macros/TV%20Right'
+  tv_ok: 'curl -X POST http://IP:PORT/macros/TV%20Ok'
+  tv_vol_up: 'curl -X POST http://IP:PORT/macros/TV%20Vol%20Up'
+  tv_vol_down: 'curl -X POST http://IP:PORT/macros/TV%20Vol%20Down'
+  tv_mute: 'curl -X POST http://IP:PORT/macros/TV%20Mute'
 
 LIRC-WEB /usr/local/lib/node_modules/lirc_web/config.json
 {
