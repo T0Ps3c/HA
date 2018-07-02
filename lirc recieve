@@ -1,0 +1,69 @@
+input boolean:
+  mihome:
+
+/home/pi/on.sh:
+  curl -X POST -H 'x-ha-access: PASSWORD' -H "Content-Type: application/json" -d '{"state": "on"}' http://IP:PORT/api/states/input_boolean.mihome
+
+/home/pi/off.sh:
+  curl -X POST -H 'x-ha-access: PASSWORD' -H "Content-Type: application/json" -d '{"state": "off"}' http://IP:PORT/api/states/input_boolean.mihome
+
+/etc/lirc/lircd.conf.d/MI.lircd.conf
+begin remote
+  name  MI
+  bits           16
+  flags SPACE_ENC
+  eps            30
+  aeps          100
+  header       3480  1705
+  one           454  1287
+  zero          454   417
+  ptrail        456
+  pre_data_bits   40
+  pre_data       0x4004011200
+  gap          74923
+  min_repeat      16
+  toggle_bit_mask 0x7474
+  frequency    38000
+      begin codes
+          KEY_1                    0xBCAF
+          KEY_2                    0x5E4D
+      end codes
+end remote
+
+/etc/lirc/hardware.conf
+LIRCD_ARGS="--uinput --listen"
+LOAD_MODULES=true
+DRIVER="default"
+DEVICE="/dev/lirc0"
+MODULES="lirc_rpi"
+
+/etc/lirc/irexec.lircrc
+begin irexec
+BEGIN
+	prog   = irexec
+	remote = MI
+	button = KEY_2
+	config = ./home/pi/on.sh
+END
+BEGIN
+  prog   = irexec
+  remote = MI
+  button = KEY_1
+  config = ./home/pi/off.sh
+END
+end irexec
+
+/etc/lirc/lirc_options.conf
+[lircd]
+nodaemon        = False
+driver          = default
+device          = /dev/lirc0
+output          = /var/run/lirc/lircd
+pidfile         = /var/run/lirc/lircd.pid
+plugindir       = /usr/lib/arm-linux-gnueabihf/lirc/plugins
+permission      = 666
+allow-simulate  = No
+repeat-max      = 600
+[lircmd]
+uinput          = False
+nodaemon        = False
