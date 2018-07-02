@@ -9,37 +9,38 @@ input_number:
     name: 'Temperature ±1'
 
 ############################################################
-###  input_boolean - switches for thermostat and tiles   ###
+###  input_boolean - switches for thermostat             ###
 ############################################################
 input_boolean:
-  accoolswitch:
-  acheatswitch:
-  thermocool:
-  thermoheat:
+  cooling:
+  heating:
 
 ############################################################
 ###                       scripts                        ###
 ############################################################
-script:
   ac_heat:
+    alias: 'Heat'
     sequence:
-      service: shell_command.ac_heat
+    - data:
+        command: !secret command_ac_heat
+        entity_id: remote.xiaomi_miio
+      service: remote.send_command
 
   ac_cool:
+    alias: 'Cool'
     sequence:
-      service: shell_command.ac_cool
+    - data:
+        command: !secret command_ac_cool
+        entity_id: remote.xiaomi_miio
+      service: remote.send_command
 
   ac_off:
     alias: 'Off'
     sequence:
-    - service: shell_command.ac_off
     - data:
-        entity_id: climate.ac_cool,climate.ac_heat
-        operation_mode: 'off'
-      service: climate.set_operation_mode
-    - data:
-        entity_id: input_boolean.thermocool,input_boolean.thermoheat
-      service: input_boolean.turn_off
+        command: !secret command_ac_off
+        entity_id: remote.xiaomi_miio
+      service: remote.send_command
 
 ############################################################
 ###                      automation                      ###
@@ -52,73 +53,37 @@ automation:
     action:
       - service: climate.set_temperature
         data_template:
-          entity_id: climate.autocool,climate.autoheat
+          entity_id: climate.cooling,climate.heating
           temperature: '{{ trigger.to_state.state }}'
-  - alias: thermoheaton
+
+- alias: cool on
     trigger:
     - platform: state
-      entity_id: input_boolean.thermoheat
-      to: 'on'
-    action:
-    - data:
-        entity_id: climate.autoheat
-        operation_mode: 'heat'
-      service: climate.set_operation_mode
-  - alias: thermoheatoff
-    trigger:
-    - platform: state
-      entity_id: input_boolean.thermoheat
-      to: 'off'
-    action:
-    - data:
-        entity_id: climate.autoheat
-        operation_mode: 'off'
-      service: climate.set_operation_mode
-  - alias: thermocoolon
-    trigger:
-    - platform: state
-      entity_id: input_boolean.thermocool
-      to: 'on'
-    action:
-    - data:
-        entity_id: climate.autocool
-        operation_mode: 'cool'
-      service: climate.set_operation_mode
-  - alias: thermocooloff
-    trigger:
-    - platform: state
-      entity_id: input_boolean.thermocool
-      to: 'off'
-    action:
-    - data:
-        entity_id: climate.autocool
-        operation_mode: 'off'
-      service: climate.set_operation_mode
-  - alias: coolon
-    trigger:
-    - platform: state
-      entity_id: input_boolean.accoolswitch
+      entity_id: input_boolean.cooling
       to: 'on'
     action:
     - service: script.ac_cool
-  - alias: cooloff
+
+  - alias: cool off
     trigger:
     - platform: state
-      entity_id: input_boolean.accoolswitch
+      entity_id: input_boolean.cooling
       to: 'off'
     action:
     - service: script.ac_off
-  - alias: heaton
+
+  - alias: heat on
     trigger:
     - platform: state
-      entity_id: input_boolean.acheatswitch
+      entity_id: input_boolean.heating
       to: 'on'
     action:
     - service: script.ac_heat
-  - alias: heatoff
+
+  - alias: heat off
     trigger:
     - platform: state
-      entity_id: input_boolean.acheatswitch
+      entity_id: input_boolean.heating
       to: 'off'
     action:
     - service: script.ac_off
@@ -126,11 +91,10 @@ automation:
 ############################################################
 ###        generic_thermostat heating and cooling        ###
 ############################################################
-climate:
   - platform: generic_thermostat
-    name: AutoHeat
-    heater: input_boolean.acheatswitch
-    target_sensor: sensor.temperature
+    name: Heating
+    heater: input_boolean.heating
+    target_sensor: sensor.temperature_158d0001b9632f
     ac_mode: False
     cold_tolerance: 1
     hot_tolerance: 1
@@ -138,10 +102,11 @@ climate:
     max_temp: 30
     target_temp: 25
     initial_operation_mode: "off"
+
   - platform: generic_thermostat
-    name: AutoCool
-    heater: input_boolean.accoolswitch
-    target_sensor: sensor.temperature
+    name: Cooling
+    heater: input_boolean.cooling
+    target_sensor: sensor.temperature_158d0001b9632f
     ac_mode: True
     cold_tolerance: 1
     hot_tolerance: 1
