@@ -15,6 +15,7 @@ sudo docker run -d --restart=always --name portainer -p 9000:9000 -v /var/run/do
 curl -sL https://raw.githubusercontent.com/home-assistant/hassio-build/master/install/hassio_install | bash -s -- -m raspberrypi3
 
 # Netdata
+bash <(curl -Ss https://my-netdata.io/kickstart.sh) all
 sudo docker run -d --restart=always --name netdata -p 19999:19999 mhiro2/rpi-netdata
 
 # Kerberos
