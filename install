@@ -29,3 +29,6 @@ sudo docker run -d --restart=always --name zoneminder -p 8080:80 -e TZ="TZ/TZ" -
 
 # Smokeping
 sudo docker run -d --restart=always --name smokeping -p 8020:80  -e SPUSER=root -e TZ="TZ/TZ" -v "/opt/smokeping/data":"/data":rw -v "/opt/smokeping/config":"/config":rw lsioarmhf/smokeping
+
+# HiveMQ
+sudo docker run -d --restart=always --name hivemq -p 8080:8080 -p 1883:1883 hivemq/hivemq4
